@@ -6,3 +6,4 @@ dev-logs/
 *.jpg
 *.png
 *.pdf
+dist/
