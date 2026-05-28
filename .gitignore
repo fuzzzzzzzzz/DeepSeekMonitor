@@ -3,3 +3,6 @@ dist/
 .env
 *.log
 dev-logs/
+*.jpg
+*.png
+*.pdf
