@@ -11,13 +11,15 @@
   "build": {
     "appId": "com.deepseek.monitor",
     "productName": "DeepSeek Monitor",
+    "compression": "maximum",
     "win": {
       "target": "nsis",
       "icon": "assets/icon.png"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icon.png"
     },
     "files": [
       "main.js",
@@ -25,8 +27,17 @@
       "src/**/*",
       "backend/**/*",
       "assets/**/*",
-      "node_modules/**/*"
-    ]
+      "!docs/**",
+      "!dev-logs/**",
+      "!CLAUDE.md",
+      "!*.jpg",
+      "!*.png",
+      "!*.pdf",
+      "!启动App.bat"
+    ],
+    "extraResources": [],
+    "asar": true,
+    "asarUnpack": []
   },
   "author": "",
   "license": "MIT",
