@@ -98,6 +98,17 @@ document.getElementById('toggle-autolaunch').addEventListener('click', async () 
   await window.deepseekAPI.setSetting('auto_launch', autoLaunchOn ? 'true' : 'false');
 });
 
+// ---- Settings: Theme ----
+let isDark = false;
+document.getElementById('toggle-theme').addEventListener('click', async () => {
+  isDark = !isDark;
+  const btn = document.getElementById('toggle-theme');
+  const label = document.getElementById('theme-status');
+  if (isDark) { btn.classList.add('on'); label.textContent = '深色'; document.documentElement.setAttribute('data-theme', 'dark'); }
+  else { btn.classList.remove('on'); label.textContent = '浅色'; document.documentElement.setAttribute('data-theme', 'light'); }
+  await window.deepseekAPI.setSetting('theme', isDark ? 'dark' : 'light');
+});
+
 // ---- Settings: Logout ----
 document.getElementById('btn-logout').addEventListener('click', async () => {
   await window.deepseekAPI.setSetting('ds_token', '');
@@ -119,6 +130,13 @@ async function loadSettings() {
   document.getElementById('refresh-minutes').textContent = refreshMin;
   document.getElementById('alert-threshold').value = await window.deepseekAPI.getSetting('alert_threshold', '10');
   document.getElementById('cost-threshold').value = await window.deepseekAPI.getSetting('cost_threshold', '100');
+
+  // Theme
+  const savedTheme = await window.deepseekAPI.getSetting('theme', 'light');
+  isDark = savedTheme === 'dark';
+  document.getElementById('theme-status').textContent = isDark ? '深色' : '浅色';
+  if (isDark) document.getElementById('toggle-theme').classList.add('on');
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 
   // Auto launch
   autoLaunchOn = (await window.deepseekAPI.getSetting('auto_launch', 'false')) === 'true';
